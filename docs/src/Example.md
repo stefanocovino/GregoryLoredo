@@ -1,7 +1,8 @@
-```@julia
+```julia
 using CairoMakie
 using Downloads: download
 using Format
+using GregoryLoredo
 using ZipStreams
 ```
 
@@ -87,4 +88,38 @@ Minimum period: 10.7 days, maximum period: 250.3 days, number of periods: 117
 ## Model parameter
 ***
 
-The
+The GL92 does not assume any specific light-curve shape, and descfribe the variability pattern as a box-shaped function. The maximum number of boxes is, in principle, only limited by the availabke conputing power and data quality. For the dataset we are considering, we adopt a maximum number of boxes of 25.
+
+
+```julia
+mmax = 25
+```
+
+The first step is therefore to compute the odd ratios for each model (m from 2 to mmax) compared to the constant (no variability model, m=1).
+
+
+```julia
+omq = OddRatios(data,wr,mmax);
+```
+
+And plot the histogram of the obtained odd ratios:
+
+```julia
+PlotOddRatios(omq)
+```
+![Histogram](oddratios.png)
+
+
+And derive some summary from the odd ratios distribution:
+
+```julia
+odrs = OddRatioSummary(omq)
+printfmtln("Probability non-constant model: {:.2g} and best number of bins: {:d}", odrs.prob, odrs.maxm)
+```
+
+```
+Probability non-constant model: 1.00 and best number of bins: 17
+```
+
+
+
