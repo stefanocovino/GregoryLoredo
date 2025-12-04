@@ -12,11 +12,10 @@ The alghorithm has beed widely applied in astronomical research and this is its 
 
 ## Installation
 
-The package is not registered yet, so for installation you need the full path:
 
 ```julia
 using Pkg
-Pkg.add(url="https://github.com/stefanocovino/GregoryLoredo.jl.git")
+Pkg.add("GregoryLoredo")
 ```
 
 will install this package.
